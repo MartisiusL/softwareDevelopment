@@ -5,17 +5,18 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
-import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
 @NamedQueries({
-        @NamedQuery(name = "Player.findAll", query = "select a from Player as a")
+        @NamedQuery(name = "Author.findAll", query = "select a from Author as a")
 })
-@Table(name = "PLAYER")
-@Getter @Setter
-public class Player implements Serializable {
-
+@Table(name = "AUTHOR")
+@Getter
+@Setter
+public class Author {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -24,20 +25,19 @@ public class Player implements Serializable {
     @Column(name = "NAME")
     private String name;
 
-    @ManyToOne
-    @JoinColumn(name="TEAM_ID")
-    private Team team;
+    @ManyToMany(mappedBy="authorList")
+    private List<Book> bookList = new ArrayList<>();
 
-    public Player() {
+    public Author() {
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Player player = (Player) o;
-        return Objects.equals(id, player.id) &&
-                Objects.equals(name, player.name);
+        Author author = (Author) o;
+        return Objects.equals(id, author.id) &&
+                Objects.equals(name, author.name);
     }
 
     @Override

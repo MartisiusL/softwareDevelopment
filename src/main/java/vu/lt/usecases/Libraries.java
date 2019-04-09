@@ -2,8 +2,8 @@ package vu.lt.usecases;
 
 import lombok.Getter;
 import lombok.Setter;
-import vu.lt.entities.Team;
-import vu.lt.persistence.TeamsDAO;
+import vu.lt.entities.Library;
+import vu.lt.persistence.LibraryDAO;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.inject.Model;
@@ -12,29 +12,29 @@ import javax.transaction.Transactional;
 import java.util.List;
 
 @Model
-public class Teams {
+public class Libraries {
 
     @Inject
-    private TeamsDAO teamsDAO;
+    private LibraryDAO libraryDAO;
 
     @Getter @Setter
-    private Team teamToCreate = new Team();
+    private Library libraryToCreate = new Library();
 
     @Getter
-    private List<Team> allTeams;
+    private List<Library> allLibraries;
 
     @PostConstruct
     public void init(){
-        loadAllTeams();
+        loadAllLibraries();
     }
 
     @Transactional
-    public String createTeam(){
-        this.teamsDAO.persist(teamToCreate);
+    public String createLibrary(){
+        this.libraryDAO.persist(libraryToCreate);
         return "index?faces-redirect=true";
     }
 
-    private void loadAllTeams(){
-        this.allTeams = teamsDAO.loadAll();
+    private void loadAllLibraries(){
+        this.allLibraries = libraryDAO.loadAll();
     }
 }

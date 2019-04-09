@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:f="http://java.sun.com/jsf/core">
+<h:head/>
+<h:body>
+    <h2>Books which are in #{booksForLibrariesMyBatis.library.name} library:</h2>
+    <ol>
+        <ui:repeat value="#{booksForLibrariesMyBatis.library.booksList}" var="book">
+            <li><h:link value="#{book.name}" outcome="/myBatis/authors?bookId=#{book.id}" /></li>
+        </ui:repeat>
+    </ol>
+    <h:form>
+        <h:inputText a:placeholder="name" value="#{booksForLibrariesMyBatis.bookToCreate.name}" required="true" />
+        <h:commandButton value="Add book to the library" action="#{booksForLibrariesMyBatis.creteBook}" >
+            <f:param name="libraryId" value="#{booksForLibrariesMyBatis.library.id}" />
+        </h:commandButton>
+    </h:form>
+    <h:link outcome="/myBatis/libraries" value="Back to library page"/>
+</h:body>
+</html>
