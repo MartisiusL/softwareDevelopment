@@ -27,6 +27,13 @@ public class Book implements Serializable {
     @Column(name = "NAME")
     private String name;
 
+    @Column(name = "YEARS_WRITTEN")
+    private Integer yearsWritten;
+
+    @Version
+    @Column(name = "OPT_LOCK_VERSION")
+    private Integer version;
+
     @ManyToOne
     @JoinColumn(name="LIBRARY_ID")
     private Library library;
@@ -53,4 +60,6 @@ public class Book implements Serializable {
     public int hashCode() {
         return Objects.hash(id, name);
     }
+
+
 }

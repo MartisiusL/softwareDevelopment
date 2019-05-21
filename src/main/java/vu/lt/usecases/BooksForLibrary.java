@@ -7,11 +7,13 @@ import javax.inject.Inject;
 import javax.transaction.Transactional;
 import java.io.Serializable;
 import java.util.Map;
+import java.util.Random;
 
 import lombok.Getter;
 import lombok.Setter;
 import vu.lt.entities.Book;
 import vu.lt.entities.Library;
+import vu.lt.interceptors.LoggedInvocation;
 import vu.lt.persistence.BooksDAO;
 import vu.lt.persistence.LibraryDAO;
 
@@ -39,8 +41,10 @@ public class BooksForLibrary implements Serializable {
     }
 
     @Transactional
+    @LoggedInvocation
     public String createBook() {
         bookToCreate.setLibrary(this.library);
+        bookToCreate.setYearsWritten(1999);
         booksDAO.persist(bookToCreate);
         return "books?faces-redirect=true&libraryId=" + this.library.getId();
     }

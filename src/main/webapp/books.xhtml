@@ -7,11 +7,13 @@
       xmlns:f="http://java.sun.com/jsf/core">
 <h:head/>
 <h:body>
-    <h2>Books which are in #{booksForLibrary.library.name} library:</h2>
+    <h2>Books which are in #{booksForLibrary.library.name} library: (entityFramework) </h2>
     <ol>
         <ui:repeat value="#{booksForLibrary.library.books}" var="book">
-            <li><h:link value="#{book.name}" outcome="authors?bookId=#{book.id}" /></li>
+            <li>
+                <h:link value="#{book.name} #{book.yearsWritten}" outcome="bookDetails?bookId=#{book.id}" /></li>
         </ui:repeat>
+<!--        <h:link value="#{book.name}" outcome="authors?bookId=#{book.id}"/>-->
     </ol>
     <h:form>
         <h:inputText a:placeholder="name" value="#{booksForLibrary.bookToCreate.name}" required="true" />
